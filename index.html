@@ -6,8 +6,10 @@
     <title>Bootstrap - Acordeão e Alertas</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
-<body class="p-4"> 
-    <h1>ACORDEÃO</h1>
+<body div class="container p-4"> 
+
+  <!-- TÍTULO -->
+  <h1 class="text-center mb-4">ACORDEÃO</h1>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
 
@@ -78,42 +80,74 @@
 </div>
 
 <div class="container p-4"> </div>
-  <h1>ALERTAS</h1>
+  <!-- TÍTULO -->
+  <h1 class="text-center mb-4">ALERTAS</h1>
 
-<div class="alert alert-primary alert-dismissible fade show" role="alert">
-  Um alerta primário simples — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-secondary alert-dismissible fade show" role="alert">
-  Um alerta secundário simples — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  Um alerta de sucesso simples — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  Um simples alerta de perigo — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  Um simples alerta — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-info alert-dismissible fade show" role="alert">
-  Um alerta informativo simples — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-light alert-dismissible fade show" role="alert">
- Um simples alerta luminoso — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-<div class="alert alert-dark alert-dismissible fade show" role="alert">
-  Um alerta simples e direto — confira!
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
+  <!-- BOTÕES DE ALERTA -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <button class="btn btn-success w-100" onclick="mostrarAlerta('success')">Sucesso</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-danger w-100" onclick="mostrarAlerta('danger')">Erro</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-warning w-100" onclick="mostrarAlerta('warning')">Aviso</button>
+    </div>
+  </div>
+
+  <!-- ALERTAS -->
+  <div id="areaAlertas"></div>
+
+  <!-- FORMULÁRIO -->
+  <div class="card shadow mb-5">
+    <div class="card-body">
+      <h5 class="card-title">Cadastro</h5>
+
+      <form onsubmit="enviarFormulario(event)">
+        <input type="text" id="nome" class="form-control mb-3" placeholder="Digite seu nome">
+        <input type="email" id="email" class="form-control mb-3" placeholder="Digite seu email">
+        <button class="btn btn-primary w-100">Enviar</button>
+      </form>
+    </div>
+  </div>
+
 
 <script src="./js/script.js" >
+</script>
+<!-- SCRIPT -->
+<script>
+
+// ALERTA DINÂMICO
+function mostrarAlerta(tipo) {
+  let mensagem = "";
+
+  if (tipo === "success") mensagem = "Operação realizada com sucesso!";
+  if (tipo === "danger") mensagem = "Erro ao processar!";
+  if (tipo === "warning") mensagem = "Atenção! Verifique os dados.";
+
+  document.getElementById("areaAlertas").innerHTML = `
+    <div class="alert alert-${tipo} alert-dismissible fade show mt-3">
+      ${mensagem}
+      <button class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  `;
+}
+
+// FORMULÁRIO
+function enviarFormulario(event) {
+  event.preventDefault();
+
+  let nome = document.getElementById("nome").value;
+  let email = document.getElementById("email").value;
+
+  if (nome === "" || email === "") {
+    mostrarAlerta("danger");
+  } else {
+    mostrarAlerta("success");
+  }
+}
+
 </script>
 </body>
 </html>
